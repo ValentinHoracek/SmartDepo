@@ -1,0 +1,6 @@
+@SmartDepoAPI_HostAddress = http://localhost:5250
+
+GET {{SmartDepoAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

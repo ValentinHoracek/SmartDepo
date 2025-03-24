@@ -1,0 +1,54 @@
+using Microsoft.EntityFrameworkCore;
+using SmartDepoAPI.Models;
+using SmartDepoAPI.Controllers;
+using SmartDepoAPI;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+
+builder.Services.AddDbContext<AppDbContext>(opt =>
+                opt.UseInMemoryDatabase("WeatherForecast"));
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+// Seed data
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    SeedData(context);
+}
+
+app.Run();
+
+static void SeedData(AppDbContext context)
+{
+    context.WeatherForecasts.Add(
+        new WeatherForecast
+        { 
+            Date = DateOnly.FromDateTime(DateTime.Now), 
+            TemperatureC = 25, 
+            Summary = "Hot" 
+        });
+    context.SaveChanges();
+}
