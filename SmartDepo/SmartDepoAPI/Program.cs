@@ -12,6 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(opt =>
                 opt.UseInMemoryDatabase("WeatherForecast"));
 
+
+builder.Services.AddCors(
+    options => options.AddDefaultPolicy(
+        policy => policy.WithOrigins([builder.Configuration["BackendUrl"] ?? "http://localhost:5002",
+            builder.Configuration["FrontendUrl"] ?? "http://localhost:5001"])
+            .AllowAnyMethod()
+            .AllowAnyHeader()));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
