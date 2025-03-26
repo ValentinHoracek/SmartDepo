@@ -1,0 +1,38 @@
+﻿@page "/Tram"
+@rendermode InteractiveServer
+@inherits TramBase
+
+<PageTitle>Depo</PageTitle>
+
+<h1>Depo</h1>
+
+<p>This component demonstrates showing data.</p>
+
+<button @onclick="FetchData">Fetch Data</button>
+
+@if (Trams == null)
+{
+    <p><em>Click the button...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Schedule</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tram in Trams)
+            {
+                <tr>
+                    <td>@tram.HasSchedule</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+}

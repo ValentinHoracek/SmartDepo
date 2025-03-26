@@ -51,12 +51,16 @@ app.Run();
 
 static void SeedData(AppDbContext context)
 {
-    context.WeatherForecasts.Add(
-        new WeatherForecast
-        { 
-            Date = DateOnly.FromDateTime(DateTime.Now), 
-            TemperatureC = 25, 
-            Summary = "Hot" 
-        });
+    context.Depo.AddRange(
+        new() { HasSchedule = true, },
+        new() { HasSchedule = true, },
+        new() { HasSchedule = true, },
+        new() { HasSchedule = true, },
+        new() { HasSchedule = true, },
+        new() { HasSchedule = false, },
+        new() { HasSchedule = false, },
+        new() { HasSchedule = false, },
+        new() { HasSchedule = false, },
+        new() { HasSchedule = false, }); 
     context.SaveChanges();
 }

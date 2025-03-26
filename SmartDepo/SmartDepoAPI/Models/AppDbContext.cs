@@ -8,6 +8,6 @@ namespace SmartDepoAPI.Models
         {
         }
 
-        public DbSet<WeatherForecast> WeatherForecasts { get; set; } = null!;
+        public DbSet<Tram> Depo { get; set; } = null!;
     }
 }

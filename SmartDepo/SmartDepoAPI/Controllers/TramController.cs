@@ -9,27 +9,27 @@ namespace SmartDepoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WeatherForecastController : ControllerBase
+    public class TramController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public WeatherForecastController(AppDbContext context)
+        public TramController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/<WeatherForecastController>
+        // GET: api/<TramController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WeatherForecast>>> Get()
+        public async Task<ActionResult<IEnumerable<Tram>>> Get()
         {
-            return await _context.WeatherForecasts.ToListAsync();
+            return await _context.Depo.ToListAsync();
         }
 
-        // GET api/<WeatherForecastController>/5
+        // GET api/<TramController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<WeatherForecast>> Get(int id)
+        public async Task<ActionResult<Tram>> Get(int id)
         {
-            var item = await _context.WeatherForecasts.FindAsync(id);
+            var item = await _context.Depo.FindAsync(id);
 
             if (item == null)
             {
@@ -39,9 +39,9 @@ namespace SmartDepoAPI.Controllers
             return item;
         }
 
-        // PUT api/<WeatherForecastController>/5
+        // PUT api/<TramController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, [FromBody]WeatherForecast item)
+        public async Task<IActionResult> Put(long id, [FromBody]Tram item)
         {
             if (id != item.Id)
             {
@@ -69,27 +69,27 @@ namespace SmartDepoAPI.Controllers
             return NoContent();
         }
 
-        // POST api/<WeatherForecastController>
+        // POST api/<TramController>
         [HttpPost]
-        public async Task<ActionResult<WeatherForecast>> Post([FromBody]WeatherForecast item)
+        public async Task<ActionResult<Tram>> Post([FromBody]Tram item)
         {
-            _context.WeatherForecasts.Add(item);
+            _context.Depo.Add(item);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("Get", new { id = item.Id }, item);
         }
 
-        // DELETE api/<WeatherForecastController>/5
+        // DELETE api/<TramController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var item = await _context.WeatherForecasts.FindAsync(id);
+            var item = await _context.Depo.FindAsync(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            _context.WeatherForecasts.Remove(item);
+            _context.Depo.Remove(item);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -97,7 +97,7 @@ namespace SmartDepoAPI.Controllers
 
         private bool TodoItemExists(long id)
         {
-            return _context.WeatherForecasts.Any(e => e.Id == id);
+            return _context.Depo.Any(e => e.Id == id);
         }
     }
 }
