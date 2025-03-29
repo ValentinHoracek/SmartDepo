@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using SmartDepoAPI.Models;
-using SmartDepoAPI.Controllers;
-using SmartDepoAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
