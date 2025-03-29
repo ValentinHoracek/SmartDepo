@@ -3,6 +3,8 @@ namespace SmartDepo.Services
 {
     public interface ITramService
     {
-        Task<IEnumerable<Tram>> GetDepoAsync();
+        Task<IEnumerable<Tram>> GetTramsAsync();
+
+        Task<Tram> GetNextAsync();
     }
 }

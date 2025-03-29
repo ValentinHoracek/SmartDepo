@@ -1,7 +1,75 @@
 ﻿@page "/"
+@using SmartDepo.Models
+@rendermode InteractiveServer
+@inherits TramBase
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Depo</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Depo</h1>
 
-Welcome to your new app.
+<p>This component demonstrates showing data.</p>
+
+
+
+@if (Trams == null)
+{
+    <button class="btn btn-dark" @onclick="FetchData">Fetch Data</button>
+}
+else
+{
+    <div>
+        <button class="btn btn-dark" @onclick="FetchData">Refresh</button>
+    </div>
+
+    <div class="col-12">
+        @{
+            int i = 1;
+        }
+
+        @foreach (var tram in Trams)
+        {
+            if (@tram.HasSchedule)
+            {
+                <label class="btn btn-success col-1">
+                    <span class="badge bg-secondary">
+                        @i.
+                    </span>
+                    Id=@tram.Id
+                </label>
+            }
+            else
+            {
+                <label class="btn btn-danger col-1">
+                    <span class="badge bg-secondary">
+                        @i.
+                    </span>
+                    Id=@tram.Id
+                </label>
+            }
+            i++;
+        }
+    </div>
+    <div>
+        <button class="btn btn-dark" @onclick="ScheduleNext">Schedule Next</button>
+    </div>
+
+    @* <table class="table">
+        <thead>
+            <tr>
+                <th>Schedule</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tram in Trams)
+            {
+                <tr>
+                    <td>@tram.HasSchedule</td>
+                </tr>
+            }
+        </tbody>
+    </table> *@
+}
+
+@code {
+
+}

@@ -52,15 +52,17 @@ app.Run();
 static void SeedData(AppDbContext context)
 {
     context.Depo.AddRange(
-        new() { HasSchedule = true, },
-        new() { HasSchedule = true, },
-        new() { HasSchedule = true, },
-        new() { HasSchedule = true, },
-        new() { HasSchedule = true, },
-        new() { HasSchedule = false, },
-        new() { HasSchedule = false, },
-        new() { HasSchedule = false, },
-        new() { HasSchedule = false, },
-        new() { HasSchedule = false, }); 
+        new() { HasSchedule = false, Order = 7, },
+        new() { HasSchedule = true, Order = 1, },
+        new() { HasSchedule = false, Order = 5, },
+        new() { HasSchedule = false, Order = 8, },
+        new() { HasSchedule = false, Order = 9, },
+        new() { HasSchedule = true, Order = 2, },
+        new() { HasSchedule = false, Order = 6, },
+        new() { HasSchedule = false, Order = 3, },
+        new() { HasSchedule = false, Order = 4, },
+        new() { HasSchedule = false, Order = 10, });
+
+
     context.SaveChanges();
 }

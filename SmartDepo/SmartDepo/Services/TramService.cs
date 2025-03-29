@@ -11,7 +11,12 @@ namespace SmartDepo.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<Tram>> GetDepoAsync()
+        public async Task<Tram> GetNextAsync()
+        {
+            return await httpClient.GetFromJsonAsync<Tram>("api/Tram/Next");
+        }
+
+        public async Task<IEnumerable<Tram>> GetTramsAsync()
         {
             return await httpClient.GetFromJsonAsync<Tram[]>("api/Tram");
         }

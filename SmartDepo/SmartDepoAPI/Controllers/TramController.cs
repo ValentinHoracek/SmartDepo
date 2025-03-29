@@ -13,6 +13,8 @@ namespace SmartDepoAPI.Controllers
     {
         private readonly AppDbContext _context;
 
+        public static readonly object Lock = new object();
+
         public TramController(AppDbContext context)
         {
             _context = context;
@@ -22,7 +24,52 @@ namespace SmartDepoAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tram>>> Get()
         {
-            return await _context.Depo.ToListAsync();
+            return await _context.Depo.OrderBy(o => o.Order).ToListAsync();
+        }
+
+        // GET: api/<TramController>/Next
+        [HttpGet("Next")]
+        public async Task<ActionResult<Tram>> GetNext()
+        {
+            lock (Lock)
+            {
+                var item = _context.Depo.OrderBy(o => o.Order).Where(w => !w.HasSchedule).FirstOrDefault();
+
+                if (item is null)
+                {
+                    item = new Tram()
+                    {
+                        Order = _context.Depo.Max(m => m.Order) + 1,
+                        HasSchedule = true
+                    };
+                    _context.Depo.Add(item);
+                    _context.SaveChanges();
+
+                    return CreatedAtAction("Get", new { id = item.Id }, item);
+                }
+
+                item.HasSchedule = true;
+
+                _context.Entry(item).State = EntityState.Modified;
+
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TodoItemExists(item.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return item;
+            }
         }
 
         // GET api/<TramController>/5
