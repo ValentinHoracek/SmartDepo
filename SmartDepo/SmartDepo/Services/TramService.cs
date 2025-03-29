@@ -1,4 +1,6 @@
-﻿using SmartDepo.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using SmartDepo.Models;
+using System.Text;
 
 namespace SmartDepo.Services
 {
@@ -9,6 +11,11 @@ namespace SmartDepo.Services
         public TramService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
+        }
+
+        public async Task<HttpResponseMessage> FreeTramAsync(Tram tram)
+        {
+            return await httpClient.PutAsJsonAsync($"api/Tram/{tram.Id}", tram);
         }
 
         public async Task<Tram> GetNextAsync()

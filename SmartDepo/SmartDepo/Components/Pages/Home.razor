@@ -7,21 +7,23 @@
 
 <h1>Depo</h1>
 
-<p>This component demonstrates showing data.</p>
-
-
+<p>To simulate planning schedule for trams on one track.</p>
+<p class="fst-italic">Clicking the button will schedule next available tram. By clicking on already scheduled tram you can free it from it's schedule.</p>
 
 @if (Trams == null)
 {
-    <button class="btn btn-dark" @onclick="FetchData">Fetch Data</button>
+    <div class="container text-center">
+        <button class="btn btn-dark" @onclick="FetchData">Fetch Data</button>
+    </div>
 }
 else
 {
-    <div>
-        <button class="btn btn-dark" @onclick="FetchData">Refresh</button>
+    <div class="container text-start">
+        <button id="btn_next" class="btn btn-dark" @onclick="ScheduleNext">Schedule Next</button>
     </div>
+    <br />
 
-    <div class="col-12">
+    <div class="container col-12">
         @{
             int i = 1;
         }
@@ -30,46 +32,31 @@ else
         {
             if (@tram.HasSchedule)
             {
-                <label class="btn btn-success col-1">
+                <label class="badge bg-success col-1" @onclick="() => FreeTram(tram)">
                     <span class="badge bg-secondary">
                         @i.
                     </span>
-                    Id=@tram.Id
+                    <span>
+                        Id=@tram.Id
+                    </span>
                 </label>
             }
             else
             {
-                <label class="btn btn-danger col-1">
+                <label class="badge bg-danger col-1">
                     <span class="badge bg-secondary">
                         @i.
                     </span>
-                    Id=@tram.Id
+                    <span>
+                        Id=@tram.Id
+                    </span>
                 </label>
             }
             i++;
         }
     </div>
-    <div>
-        <button class="btn btn-dark" @onclick="ScheduleNext">Schedule Next</button>
-    </div>
-
-    @* <table class="table">
-        <thead>
-            <tr>
-                <th>Schedule</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var tram in Trams)
-            {
-                <tr>
-                    <td>@tram.HasSchedule</td>
-                </tr>
-            }
-        </tbody>
-    </table> *@
+    
 }
 
 @code {
-
 }

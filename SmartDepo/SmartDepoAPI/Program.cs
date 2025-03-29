@@ -10,8 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
-                opt.UseInMemoryDatabase("WeatherForecast"));
-
+                opt.UseInMemoryDatabase("Depo"));
 
 builder.Services.AddCors(
     options => options.AddDefaultPolicy(
@@ -62,7 +61,6 @@ static void SeedData(AppDbContext context)
         new() { HasSchedule = false, Order = 3, },
         new() { HasSchedule = false, Order = 4, },
         new() { HasSchedule = false, Order = 10, });
-
 
     context.SaveChanges();
 }

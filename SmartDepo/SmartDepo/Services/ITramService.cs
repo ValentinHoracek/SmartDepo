@@ -6,5 +6,7 @@ namespace SmartDepo.Services
         Task<IEnumerable<Tram>> GetTramsAsync();
 
         Task<Tram> GetNextAsync();
+
+        Task<HttpResponseMessage> FreeTramAsync(Tram tram);
     }
 }

@@ -38,5 +38,13 @@ namespace SmartDepo.Models
             }
         }
 
+        public async Task FreeTram(Tram tram)
+        {
+            tram.HasSchedule = false;
+            await TramService.FreeTramAsync(tram);
+
+            Trams.Where(w => w.Id == tram.Id).First().HasSchedule = tram.HasSchedule;
+        }
+
     }
 }
